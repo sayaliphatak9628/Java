@@ -1,0 +1,276 @@
+Javascript Notes
+
+*****---------------------
+ES6:
+
+*Object.freeze() -> once the object is frozen, you can no longer add,update or delete the elements.
+eg. let obj = {
+  name:"FreeCodeCamp",
+  review:"Awesome"
+};
+Object.freeze(obj);
+obj.review = "bad";
+obj.newProp = "Test";
+console.log(obj); 
+
+
+*Arrow Function
+const myFunc = function() {
+  const myVar = "value";
+  return myVar;
+}
+
+const myFunc = () => {
+  const myVar = "value";
+  return myVar;
+}
+
+const myFunc = () => "value";
+
+
+*Using rest parameters with function parameters
+	With the rest parameter, you can create functions that take a variable number of arguments. 
+function howMany(...args) {
+  return "You have passed " + args.length + " arguments.";
+}
+console.log(howMany(0, 1, 2));
+console.log(howMany("string", null, [1, 2, 3], { }));
+
+
+*Spread operator
+const arr = [6, 89, 3, 45];
+const maximus = Math.max(...arr);
+const spreaded = ...arr; -> copies the whole array elements into new array
+
+*Use Destructuring Assignment to Extract Values from ObjectsPassed
+const user = { name: 'John Doe', age: 34 };
+const name = user.name;
+const age = user.age;
+
+const { name, age } = user; -> assigns value taken directly from an object
+
+
+
+*Use Destructuring Assignment to Assign Variables from Objects
+const user = { name: 'John Doe', age: 34 };
+
+const { name: userName, age: userAge } = user; -> assigns new variable name when extracting values
+
+
+
+*Use Destructuring Assignment to Assign Variables from Nested Objects
+const user = {
+  johnDoe: { 
+    age: 34,
+    email: 'johnDoe@freeCodeCamp.com'
+  }
+};
+
+const { johnDoe: { age: userAge, email: userEmail }} = user; -> assigns object properties values to variables with different name
+
+
+*Use Destructuring Assignment to Assign Variables from Arrays
+const [a, b] = [1, 2, 3, 4, 5, 6];
+console.log(a, b);
+
+const [a, b,,, c] = [1, 2, 3, 4, 5, 6];
+console.log(a, b, c); -> The console will display the values of a, b, and c as 1, 2, 5.
+
+
+
+
+*Use Destructuring Assignment with the Rest Parameter to Reassign Array Elements
+const [a, b, ...arr] = [1, 2, 3, 4, 5, 7];
+console.log(a, b);
+console.log(arr); -> The console would display the values 1, 2 and [3, 4, 5, 7].
+
+
+
+*Use Destructuring Assignment to Pass an Object as a Function's Parameters
+const profileUpdate = (profileData) => {
+  const { name, age, nationality, location } = profileData;
+
+}
+
+const profileUpdate = ({ name, age, nationality, location }) => {
+
+}
+
+
+
+*Create Strings using Template Literals
+Template strings allows you to create multi-line strings and to use string interpolation features to create strings.
+const person = {
+  name: "Zodiac Hasbro",
+  age: 56
+};
+
+const greeting = `Hello, my name is ${person.name}!
+I am ${person.age} years old.`;
+
+console.log(greeting); ->The console will display the strings Hello, my name is Zodiac Hasbro! and I am 56 years old.
+
+
+
+*Write Concise Object Literal Declarations Using Object Property Shorthand
+const getMousePosition = (x, y) => ({
+  x: x,
+  y: y
+});
+
+const getMousePosition = (x, y) => ({ x, y }); ->
+
+
+
+*Write Concise Declarative Functions with ES6
+const person = {
+  name: "Taylor",
+  sayHello: function() {
+    return `Hello! My name is ${this.name}.`;
+  }
+};
+
+const person = {
+  name: "Taylor",
+  sayHello() {
+    return `Hello! My name is ${this.name}.`;
+  }
+};
+
+
+
+*Use class Syntax to Define a Constructor Function
+var SpaceShuttle = function(targetPlanet){
+  this.targetPlanet = targetPlanet;
+}
+var zeus = new SpaceShuttle('Jupiter');
+
+class SpaceShuttle {
+  constructor(targetPlanet) {
+    this.targetPlanet = targetPlanet;
+  }
+}
+const zeus = new SpaceShuttle('Jupiter'); -> In ES5, we usually define a constructor function and use the new keyword to instantiate an object.
+
+
+
+*Use getters and setters to Control Access to an Object
+Getter -> returns the value of objects private variable to the user without directly accessing the private variable.
+Setter -> modify the value of objects private variable based on the value passed in the setter function.
+
+class Book {
+  constructor(author) {
+    this._author = author;
+  }
+  // getter
+  get writer() {
+    return this._author;
+  }
+  // setter
+  set writer(updatedAuthor) {
+    this._author = updatedAuthor;
+  }
+}
+const novel = new Book('anonymous');
+console.log(novel.writer);
+novel.writer = 'newAuthor';
+console.log(novel.writer); ->The console would display the strings anonymous and newAuthor.
+
+
+
+*Sharing codes among javascript files - module
+<script type="module" src="filename.js"></script> ->A script that uses this module type can now use the import and export features 
+
+
+
+*Use export to Share a Code Block
+export const add = (x, y) => {
+  return x + y;
+}
+
+const add = (x, y) => {
+  return x + y;
+}
+
+export { add };
+
+export { add, subtract }; -> When you export a variable or function, you can import it in another file and use it without having to rewrite the code.
+
+
+
+*Reuse JavaScript Code Using import
+import -> allows you to choose which parts of file or module to load.
+
+import { add, subtract } from './math_functions.js'; ->Here, import will find add in math_functions.js, import just that function for you to use, and ignore the rest. The ./ tells the import to look for the math_functions.js file in the same folder as the current file. The relative file path (./) and file extension (.js) are required when using import in this way.
+
+
+
+*Use * to Import Everything from a File 
+imports all of the contents from a file to current file
+import * as myMathModule from "./math_functions.js";
+
+
+
+*Create an Export Fallback with export default
+use export defaults to export only one value from a file.
+you cannot write export default with var, let or const.
+A fallback value is a value you would use when the main thing you requested is not available.
+eg, #my-cool-text{
+    font-family: "Roboto", sans-serif; //sans-serif is fallback value
+}
+
+export default function add(x, y) {
+  return x + y;
+}
+
+
+
+
+*Import a Default Export
+import add from "./math_functions.js";
+
+
+
+
+*Create a JavaScript Promise
+A promise in JavaScript is exactly what it sounds like - you use it to make a promise to do something, usually asynchronously. When the task completes, you either fulfill your promise or fail to do so. Promise is a constructor function, so you need to use the new keyword to create one. It takes a function, as its argument, with two parameters - resolve and reject.
+const myPromise = new Promise((resolve, reject) => {
+
+});
+
+const makeServerRequest = new Promise((resolve,reject) => {
+
+});
+
+
+
+
+
+*Complete a Promise with resolve and reject
+ A promise has three states: pending, fulfilled, and rejected.The resolve and reject parameters given to the promise argument are used to do this. resolve is used when you want your promise to succeed, and reject is used when you want it to fail. 
+
+const myPromise = new Promise((resolve, reject) => {
+  if(condition here) {
+    resolve("Promise was fulfilled");
+  } else {
+    reject("Promise was rejected");
+  }
+});
+
+
+
+
+*Handle a Fulfilled Promise with then
+then method is executed immediately after your promise is fulfilled with resolve. 
+myPromise.then(result => {
+  console.log(result);
+});
+
+
+
+*Handle a Rejected Promise with catch
+catch is the method used when your promise has been rejected. It is executed immediately after a promise's reject method is called. 
+myPromise.catch(error => {
+  
+});
+
